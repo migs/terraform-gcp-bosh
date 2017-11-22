@@ -10,7 +10,6 @@ resource "google_compute_instance_template" "nat-gateway" {
   can_ip_forward = true
   metadata = "${map("startup-script", "${data.template_file.nat-gateway_startup-script.rendered}")}"
   network_interface {
-    network = "${var.network}"
     subnetwork = "${var.subnetwork}"
   }
   service_account {
