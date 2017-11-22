@@ -27,7 +27,7 @@ resource "google_compute_region_instance_group_manager" "nat-gateway" {
   name = "${var.prefix}nat-gateway"
   base_instance_name = "${var.prefix}nat-gateway-"
   instance_template = "${google_compute_instance_template.nat-gateway.self_link}"
-  auto_healing_properties {
+  auto_healing_policies {
     health_check = "${google_compute_health_check.nat-gateway.self_link}"
     initial_delay_sec = "${var.nat-gateway-hc-initial_delay}"
   }
@@ -55,7 +55,7 @@ resource "google_compute_firewall" "nat-gateway" {
   name = "${var.prefix}nat-gateway-health-check"
   allow {
     protocol = "tcp"
-    ports = "${var.nat-gateway-hc-port}"
+    ports = ["${var.nat-gateway-hc-port}"]
   }
   source_ranges = ["130.211.0.0/22", "35.191.0.0/16"]
   target_tags   = ["${var.target_tags}"]
