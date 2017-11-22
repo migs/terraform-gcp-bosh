@@ -25,7 +25,7 @@ resource "google_compute_instance_template" "nat-gateway" {
 resource "google_compute_region_instance_group_manager" "nat-gateway" {
   name = "${var.prefix}nat-gateway"
   region = "${var.region}"
-  base_instance_name = "${var.prefix}nat-gateway-"
+  base_instance_name = "${var.prefix}nat-gateway"
   instance_template = "${google_compute_instance_template.nat-gateway.self_link}"
   auto_healing_policies {
     health_check = "${google_compute_health_check.nat-gateway.self_link}"
