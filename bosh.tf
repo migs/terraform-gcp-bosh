@@ -1,22 +1,22 @@
 resource "google_compute_network" "bosh" {
-  name = "${local.env}-bosh"
+  name = "${var.prefix}bosh"
   auto_create_subnetworks = "false"
 }
 
 resource "google_compute_subnetwork" "control-subnet-1" {
-  name = "${local.env}-control-${var.region}"
-  ip_cidr_range = "${var.baseip}/26"
+  name = "${var.prefix}control-${var.region}"
+  ip_cidr_range = "${var.control-cidr}"
   network = "${google_compute_network.bosh.self_link}"
 }
 
 resource "google_compute_subnetwork" "ert-subnet-1" {
-  name = "${local.env}-ert-${var.region}"
-  ip_cidr_range = "10.10.0.0/22"
+  name = "${var.prefix}ert-${var.region}"
+  ip_cidr_range = "${var.ert-cidr}"
   network = "${google_compute_network.bosh.self_link}"
 }
 
 resource "google_compute_firewall" "bosh-bastion" {
-  name = "${local.env}-bosh-bastion"
+  name = "${var.prefix}bosh-bastion"
   network = "${google_compute_network.bosh.name}"
 
   allow {
@@ -28,7 +28,7 @@ resource "google_compute_firewall" "bosh-bastion" {
 }
 
 resource "google_compute_firewall" "bosh-intra-subnet-open" {
-  name = "${local.env}-bosh-intra-subnet-open"
+  name = "${var.prefix}bosh-intra-subnet-open"
   network = "${google_compute_network.bosh.name}"
 
   allow {
@@ -49,11 +49,11 @@ resource "google_compute_firewall" "bosh-intra-subnet-open" {
 }
 
 resource "google_compute_address" "bosh-bastion-address" {
-  name = "${local.env}-bosh-bastion-address"
+  name = "${var.prefix}bosh-bastion-address"
 }
 
 resource "google_compute_instance" "bosh-bastion" {
-  name = "${local.env}-bosh-bastion"
+  name = "${var.prefix}bosh-bastion"
   machine_type = "${local.bosh-machine_type}"
   zone = "${lookup(var.region_params,zone1)}"
 
@@ -92,8 +92,8 @@ resource "google_compute_instance" "bosh-bastion" {
     inline = [
       "chmod +x ${var.home}/*.sh",
       "sed -i 's/%%PROJECT/${var.project}/' ${var.home}/terraform.tf",
-      "sed -i 's/%%ENV/${local.env}/' ${var.home}/terraform.tf",
-      "sed -i 's/%%ENV/${local.env}/' ${var.home}/cloud-config.yml",
+      "sed -i 's/%%ENV/${var.prefix}/' ${var.home}/terraform.tf",
+      "sed -i 's/%%ENV/${var.prefix}/' ${var.home}/cloud-config.yml",
     ]
     connection {
       user = "vagrant"
@@ -181,7 +181,7 @@ bosh ucc $HOME/cloud-config.yml
 
 cat >> ${var.home}/.profile <<'EOF'
 if [ -e director-creds.yml ]; then
-    bosh alias-env $${project_id} -e 10.0.0.6 --ca-cert <(bosh int director-creds.yml --path /director_ssl/ca)
+    bosh alias-env $${project_id} -e $${var.director-ip} --ca-cert <(bosh int director-creds.yml --path /director_ssl/ca)
     eval $$(./login.sh)
 fi
 EOF
