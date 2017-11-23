@@ -5,4 +5,5 @@ module "terraform-gcp-natgateway" {
   prefix = "${var.prefix}"
   ha = "${var.ha}"
   network = "${google_compute_network.bosh.name}"
+  subnetwork = "${google_compute_subnetwork.control-subnet-1.name}"
 }
