@@ -18,6 +18,7 @@ variable "region_params" {
     }
   }
 }
+variable "image" { default = "ubuntu-1604-lts" }
 variable "bosh-version" { default = "2.0.45" }
 variable "credhub-version" { default = "1.6.4" }
 variable "terraform-version" { default = "0.11.0" }
