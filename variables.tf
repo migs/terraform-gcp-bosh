@@ -28,3 +28,4 @@ variable "control-cidr" { default = "10.0.0.0/24" }
 variable "ert-cidr" { default = "10.10.0.0/22" }
 variable "director-ip" { default = "10.0.0.6" }
 variable "service_account_email" { default = "automated@finkit-website.iam.gserviceaccount.com" }
+variable "bosh-machine_type" { default = "f1-micro" }
