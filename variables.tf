@@ -1,8 +1,8 @@
 variable "project" { }
 variable "region" { }
-variable "prefix" { }
-variable "ha" { }
-variable "network" { }
+variable "prefix" { default = "default" }
+variable "ha" { default = "false" }
+variable "network" { default = "default" }
 variable "region_params" {
   type = "map"
   default = {
