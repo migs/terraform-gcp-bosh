@@ -16,4 +16,5 @@ variable "region_params" {
       zone2 = "europe-west2-b"
       zone3 = "europe-west2-c"
     }
+  }
 }
