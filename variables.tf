@@ -5,7 +5,7 @@ variable "ha" { }
 variable "network" { }
 variable "region_params" {
   type = "map"
-  default = [
+  default = {
     europe-west1 {
       zone1 = "europe-west1-b"
       zone2 = "europe-west1-c"
@@ -16,5 +16,5 @@ variable "region_params" {
       zone2 = "europe-west2-b"
       zone3 = "europe-west2-c"
     }
-  ]
+  }
 }
