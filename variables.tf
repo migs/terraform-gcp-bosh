@@ -18,3 +18,8 @@ variable "region_params" {
     }
   }
 }
+variable "bosh-version" { default = "2.0.45" }
+variable "credhub-version" { default = "1.6.4" }
+variable "terraform-version" { default = "0.11.0" }
+variable "yaml-version" { default = "1.13.1" }
+variable "home" { default = "/home/vagrant" }
