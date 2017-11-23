@@ -55,7 +55,7 @@ resource "google_compute_address" "bosh-bastion-address" {
 resource "google_compute_instance" "bosh-bastion" {
   name = "${var.prefix}bosh-bastion"
   machine_type = "${var.bosh-machine_type}"
-  zone = "${lookup(var.region_params,zone1)}"
+  zone = "${lookup(var.region_params,"zone1")}"
 
   tags = ["bosh-bastion", "internal"]
 
