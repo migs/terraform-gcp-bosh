@@ -77,6 +77,7 @@ resource "google_compute_instance" "bosh-bastion" {
     destination = "${var.home}/automated-${var.project}.key.json"
     connection {
       user = "vagrant"
+      private_key = "${var.ssh-privatekey == "" ? file("${var.home}/.ssh/google_compute_engine") : var.ssh-privatekey}"
     }
   }
 
@@ -85,7 +86,7 @@ resource "google_compute_instance" "bosh-bastion" {
     destination = "${var.home}/"
     connection {
       user = "vagrant"
-      
+      private_key = "${var.ssh-privatekey == "" ? file("${var.home}/.ssh/google_compute_engine") : var.ssh-privatekey}"
     }
   }
 
