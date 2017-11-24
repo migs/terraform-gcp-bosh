@@ -189,8 +189,4 @@ EOF
 rm /etc/motd
 
 EOT
-
-  service_account {
-    scopes = ["cloud-platform"]
-  }
 }
