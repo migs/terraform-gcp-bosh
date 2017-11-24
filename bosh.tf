@@ -73,7 +73,7 @@ resource "google_compute_instance" "bosh-bastion" {
   }
 
   provisioner "file" {
-    content = "${base64decode(${var.service_account_key})}"
+    content = "${base64decode(var.service_account_key)}"
     destination = "${var.home}/${var.service_account}-${var.project}.key.json"
     connection {
       user = "vagrant"
