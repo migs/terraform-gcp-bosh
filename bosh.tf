@@ -94,9 +94,8 @@ resource "google_compute_instance" "bosh-bastion" {
     inline = [
       "chmod +x ${var.home}/*.sh",
       "sed -i 's/%%PROJECT/${var.project}/' ${var.home}/terraform.tf",
-      "sed -i 's/%%ENV/${var.prefix}/' ${var.home}/terraform.tf",
       "sed -i 's/%%SERVICE_ACCOUNT_ID/${var.service_account}/' ${var.home}/terraform.tf",
-      "sed -i 's/%%ENV/${var.prefix}-/' ${var.home}/cloud-config.yml",
+      "sed -i 's/%%ENV/${var.prefix}/' ${var.home}/cloud-config.yml",
     ]
     connection {
       user = "vagrant"
