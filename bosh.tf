@@ -1,22 +1,22 @@
 resource "google_compute_network" "bosh" {
-  name = "${var.prefix}bosh"
+  name = "${var.prefix}-bosh"
   auto_create_subnetworks = "false"
 }
 
 resource "google_compute_subnetwork" "control-subnet-1" {
-  name = "${var.prefix}control-${var.region}"
+  name = "${var.prefix}-control-${var.region}"
   ip_cidr_range = "${var.control-cidr}"
   network = "${google_compute_network.bosh.self_link}"
 }
 
 resource "google_compute_subnetwork" "ert-subnet-1" {
-  name = "${var.prefix}ert-${var.region}"
+  name = "${var.prefix}-ert-${var.region}"
   ip_cidr_range = "${var.ert-cidr}"
   network = "${google_compute_network.bosh.self_link}"
 }
 
 resource "google_compute_firewall" "bosh-bastion" {
-  name = "${var.prefix}bosh-bastion"
+  name = "${var.prefix}-bosh-bastion"
   network = "${google_compute_network.bosh.name}"
 
   allow {
@@ -28,7 +28,7 @@ resource "google_compute_firewall" "bosh-bastion" {
 }
 
 resource "google_compute_firewall" "bosh-intra-subnet-open" {
-  name = "${var.prefix}bosh-intra-subnet-open"
+  name = "${var.prefix}-bosh-intra-subnet-open"
   network = "${google_compute_network.bosh.name}"
 
   allow {
@@ -49,11 +49,11 @@ resource "google_compute_firewall" "bosh-intra-subnet-open" {
 }
 
 resource "google_compute_address" "bosh-bastion-address" {
-  name = "${var.prefix}bosh-bastion-address"
+  name = "${var.prefix}-bosh-bastion-address"
 }
 
 resource "google_compute_instance" "bosh-bastion" {
-  name = "${var.prefix}bosh-bastion"
+  name = "${var.prefix}-bosh-bastion"
   machine_type = "${var.bosh-machine_type}"
   zone = "${lookup(var.region_params["${var.region}"],"zone1")}"
 
@@ -86,7 +86,7 @@ resource "google_compute_instance" "bosh-bastion" {
       "chmod +x ${var.home}/*.sh",
       "sed -i 's/%%PROJECT/${var.project}/' ${var.home}/terraform.tf",
       "sed -i 's/%%ENV/${var.prefix}/' ${var.home}/terraform.tf",
-      "sed -i 's/%%ENV/${var.prefix}/' ${var.home}/cloud-config.yml",
+      "sed -i 's/%%ENV/${var.prefix}-/' ${var.home}/cloud-config.yml",
     ]
     connection {
       user = "vagrant"
