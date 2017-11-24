@@ -73,15 +73,6 @@ resource "google_compute_instance" "bosh-bastion" {
   }
 
   provisioner "file" {
-    source = "../keys/automated-${var.project}.key.json"
-    destination = "${var.home}/automated-${var.project}.key.json"
-    connection {
-      user = "vagrant"
-      private_key = "${var.ssh-privatekey == "" ? file("${var.home}/.ssh/google_compute_engine") : var.ssh-privatekey}"
-    }
-  }
-
-  provisioner "file" {
     source = "files/bosh-bastion/"
     destination = "${var.home}/"
     connection {

@@ -18,3 +18,7 @@ output "wordpress-password" {
 output "env" {
   value = "${data.terraform_remote_state.%%PROJECT.env}"
 }
+
+output "service_account_key" {
+  value = "${data.service_account_key.automated.private_key}"
+}
