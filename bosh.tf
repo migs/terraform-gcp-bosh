@@ -73,7 +73,7 @@ resource "google_compute_instance" "bosh-bastion" {
   }
 
   provisioner "file" {
-    source = "files/bosh-bastion/"
+    source = "${path.module}/files/bosh-bastion/"
     destination = "${var.home}/"
     connection {
       user = "vagrant"
