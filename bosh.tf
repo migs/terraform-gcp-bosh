@@ -191,7 +191,6 @@ rm /etc/motd
 EOT
 
   service_account {
-    email = "${var.service_account_email}"
     scopes = ["cloud-platform"]
   }
 }

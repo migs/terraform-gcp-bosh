@@ -1,0 +1,257 @@
+azs:
+- cloud_properties:
+    zone: europe-west2-a
+  name: z1
+- cloud_properties:
+    zone: europe-west2-b
+  name: z2
+- cloud_properties:
+    zone: europe-west2-c
+  name: z3
+
+compilation:
+  az: z3
+  network: compilation
+  reuse_compilation_vms: true
+  vm_extensions:
+  - 50GB_ephemeral_disk
+  vm_type: large-highcpu
+  workers: 6
+
+disk_types:
+- cloud_properties:
+    encrypted: true
+    type: pd-ssd
+  disk_size: 1024
+  name: default
+- cloud_properties:
+    encrypted: true
+    type: pd-ssd
+  disk_size: 1024
+  name: 1GB
+- cloud_properties:
+    encrypted: true
+    type: pd-ssd
+  disk_size: 5120
+  name: 5GB
+- cloud_properties:
+    encrypted: true
+    type: pd-ssd
+  disk_size: 10240
+  name: 10GB
+- cloud_properties:
+    encrypted: true
+    type: pd-ssd
+  disk_size: 51200
+  name: 50GB
+- cloud_properties:
+    encrypted: true
+    type: pd-ssd
+  disk_size: 102400
+  name: 100GB
+- cloud_properties:
+    encrypted: true
+    type: pd-ssd
+  disk_size: 512000
+  name: 500GB
+- cloud_properties:
+    encrypted: true
+    type: pd-ssd
+  disk_size: 1048576
+  name: 1TB
+
+networks:
+- name: default
+  type: manual
+  subnets:
+  - range: 10.10.0.0/22
+    gateway: 10.10.0.1
+    azs:
+    - z1
+    - z2
+    - z3
+    dns: [8.8.8.8, 8.8.4.4]
+    cloud_properties:
+      ephemeral_external_ip: false
+      network_name: %%ENV-bosh
+      subnetwork_name: %%ENV-ert-europe-west2
+      tags: [internal, no-ip]
+- name: compilation
+  type: manual
+  subnets:
+  - range: 10.0.0.0/26
+    gateway: 10.0.0.1
+    azs:
+    - z1
+    - z2
+    - z3
+    dns: [8.8.8.8, 8.8.4.4]
+    reserved: [10.0.0.1-10.0.0.6]    
+    cloud_properties:
+      ephemeral_external_ip: false
+      network_name: %%ENV-bosh
+      subnetwork_name: %%ENV-control-europe-west2
+      tags: [internal, no-ip]
+      preemptible: true
+
+vm_extensions:
+- cloud_properties:
+    root_disk_size_gb: 1
+    root_disk_type: pd-ssd
+  name: 1GB_ephemeral_disk
+- cloud_properties:
+    root_disk_size_gb: 5
+    root_disk_type: pd-ssd
+  name: 5GB_ephemeral_disk
+- cloud_properties:
+    root_disk_size_gb: 10
+    root_disk_type: pd-ssd
+  name: 10GB_ephemeral_disk
+- cloud_properties:
+    root_disk_size_gb: 50
+    root_disk_type: pd-ssd
+  name: 50GB_ephemeral_disk
+- cloud_properties:
+    root_disk_size_gb: 100
+    root_disk_type: pd-ssd
+  name: 100GB_ephemeral_disk
+- cloud_properties:
+    root_disk_size_gb: 500
+    root_disk_type: pd-ssd
+  name: 500GB_ephemeral_disk
+- cloud_properties:
+    root_disk_size_gb: 1000
+    root_disk_type: pd-ssd
+  name: 1TB_ephemeral_disk
+- cloud_properties:
+    ephemeral_external_ip: true
+  name: internet-required
+- cloud_properties:
+    ephemeral_external_ip: false
+  name: internet-not-required
+- cloud_properties:
+    preemptible: true
+  name: preemptible
+
+vm_types:
+- cloud_properties:
+    machine_type: n1-standard-1
+    root_disk_size_gb: 10
+    root_disk_type: pd-ssd
+    service_scopes:
+    - compute.readonly
+    - devstorage.read_write
+    - logging.write
+    - monitoring.write
+  name: minimal
+- cloud_properties:
+    machine_type: f1-micro
+    root_disk_size_gb: 10
+    root_disk_type: pd-standard
+    service_scopes:
+    - compute.readonly
+    - devstorage.read_write
+    - logging.write
+    - monitoring.write
+    backend_service: vault
+  name: vault
+- cloud_properties:
+    machine_type: f1-micro
+    root_disk_size_gb: 10
+    root_disk_type: pd-standard
+    service_scopes:
+    - compute.readonly
+    - devstorage.read_write
+    - logging.write
+    - monitoring.write
+  name: default
+- cloud_properties:
+    machine_type: f1-micro
+    root_disk_size_gb: 10
+    root_disk_type: pd-standard
+    service_scopes:
+    - compute.readonly
+    - devstorage.read_write
+    - logging.write
+    - monitoring.write
+  name: f1-micro
+- cloud_properties:
+    machine_type: g1-small
+    root_disk_size_gb: 10
+    root_disk_type: pd-ssd
+    service_scopes:
+    - compute.readonly
+    - devstorage.read_write
+    - logging.write
+    - monitoring.write
+  name: sharedcpu
+- cloud_properties:
+    machine_type: n1-standard-2
+    root_disk_size_gb: 10
+    root_disk_type: pd-ssd
+    service_scopes:
+    - compute.readonly
+    - devstorage.read_write
+    - logging.write
+    - monitoring.write
+  name: small
+- cloud_properties:
+    machine_type: n1-standard-4
+    root_disk_size_gb: 10
+    root_disk_type: pd-ssd
+    service_scopes:
+    - compute.readonly
+    - devstorage.read_write
+    - logging.write
+    - monitoring.write
+  name: medium
+- cloud_properties:
+    machine_type: n1-standard-8
+    root_disk_size_gb: 10
+    root_disk_type: pd-ssd
+    service_scopes:
+    - compute.readonly
+    - devstorage.read_write
+    - logging.write
+    - monitoring.write
+  name: large
+- cloud_properties:
+    machine_type: n1-standard-16
+    root_disk_size_gb: 10
+    root_disk_type: pd-ssd
+    service_scopes:
+    - compute.readonly
+    - devstorage.read_write
+    - logging.write
+    - monitoring.write
+  name: extra-large
+- cloud_properties:
+    machine_type: n1-highmem-4
+    root_disk_size_gb: 10
+    root_disk_type: pd-ssd
+    service_scopes:
+    - compute.readonly
+    - devstorage.read_write
+    - logging.write
+    - monitoring.write
+  name: small-highmem
+- cloud_properties:
+    machine_type: n1-highcpu-2
+    root_disk_size_gb: 10
+    root_disk_type: pd-ssd
+    service_scopes:
+    - compute.readonly
+    - devstorage.read_write
+    - logging.write
+    - monitoring.write
+  name: small-highcpu
+- cloud_properties:
+    machine_type: n1-highcpu-8
+    root_disk_size_gb: 10
+    root_disk_type: pd-ssd
+    service_scopes:
+    - compute.readonly
+    - devstorage.read_write
+    - logging.write
+    - monitoring.write
+  name: large-highcpu
