@@ -184,7 +184,7 @@ bosh ucc $HOME/cloud-config.yml
 
 cat >> ${var.home}/.profile <<'EOF'
 if [ -e director-creds.yml ]; then
-    bosh alias-env $${project_id} -e $${var.director-ip} --ca-cert <(bosh int director-creds.yml --path /director_ssl/ca)
+    bosh alias-env $${project_id} -e ${var.director-ip} --ca-cert <(bosh int director-creds.yml --path /director_ssl/ca)
     eval $$(./login.sh)
 fi
 EOF
