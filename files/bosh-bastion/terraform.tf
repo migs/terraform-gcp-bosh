@@ -20,5 +20,5 @@ output "env" {
 }
 
 output "service_account_key" {
-  value = "${data.service_account_key.automated.private_key}"
+  value = "${data.terraform_remote_state.%%PROJECT.automated.private_key}"
 }
