@@ -2,7 +2,7 @@
 
 terraform refresh > /dev/null 2>&1
 
-GCP_ENV=$(terraform output env)
+GCP_ENV=$(terraform output workspace)
 
 # Define properties
 GCP_PROJECT=${project_id}
