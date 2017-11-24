@@ -15,8 +15,8 @@ compilation:
   reuse_compilation_vms: true
   vm_extensions:
   - 50GB_ephemeral_disk
-  vm_type: large-highcpu
-  workers: 6
+  vm_type: small-highcpu
+  workers: 2
 
 disk_types:
 - cloud_properties:
