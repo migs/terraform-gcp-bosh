@@ -85,6 +85,7 @@ resource "google_compute_instance" "bosh-bastion" {
     destination = "${var.home}/"
     connection {
       user = "vagrant"
+      
     }
   }
 
@@ -97,6 +98,7 @@ resource "google_compute_instance" "bosh-bastion" {
     ]
     connection {
       user = "vagrant"
+      private_key = "${var.ssh-privatekey}"
     }
 }
 
