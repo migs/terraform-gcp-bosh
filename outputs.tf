@@ -20,11 +20,11 @@ output "bosh-db-bosh-password" {
 }
 
 output "bosh-db-uaa-password" {
-  value = "${random_string.uaa-password.result}"
+  value = "${random_string.bosh_uaa-password.result}"
   sensitive = true
 }
 
 output "bosh-db-credhub-password" {
-  value = "${random_string.credhub-password.result}"
+  value = "${random_string.bosh_credhub-password.result}"
   sensitive = true
 }
