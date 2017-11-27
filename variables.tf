@@ -16,6 +16,8 @@ variable "service_account_name" { default = "automated" }
 variable "service_account_role" { default = "roles/owner" }
 variable "bosh-machine_type" { default = "f1-micro" }
 variable "ssh-privatekey" { default = "" }
+variable "db-version" { default = "MYSQL_5_7" }
+variable "db-tier" { default = "db-g1-small" }
 
 # Pass-Through variables for `terraform-gcp-natgateway`
 variable "nat-gateway-image" { default = "debian-cloud/debian-8" }
