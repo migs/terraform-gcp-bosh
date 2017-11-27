@@ -5,3 +5,11 @@ output "bosh-bastion-hostname" {
 output "bosh-bastion-public-ip" {
   value = "${google_compute_address.bosh-bastion-address.address}"
 }
+
+output "bosh-db-instance-name" {
+  value = "${module.bosh-db.db-instance-name}"
+}
+
+output "bosh-db-instance-ip" {
+  value = "${module.bosh-db.db-instance-ip}"
+}
