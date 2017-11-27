@@ -179,9 +179,6 @@ fi
 bosh -v
 EOF
 
-bosh upload-stemcell https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent
-bosh ucc $HOME/cloud-config.yml
-
 cat >> ${var.home}/.profile <<'EOF'
 if [ -e director-creds.yml ]; then
     bosh alias-env $${project_id} -e ${var.director-ip} --ca-cert <(bosh int director-creds.yml --path /director_ssl/ca)
