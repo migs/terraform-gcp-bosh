@@ -18,7 +18,7 @@ In the above example, a service-account named `automated` is created with the `r
 
 ## High Availability
 
-By passing the `ha` variable as `true`, 3 NAT gateways will be created instead of 1
+By passing the `ha` variable as `true`, 3 NAT Gateways will be created instead of 1
 
 ## Variables
 
