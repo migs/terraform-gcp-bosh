@@ -1,8 +1,6 @@
 #!/bin/bash -eu
 
-terraform refresh > /dev/null 2>&1
-
-GCP_ENV=$(terraform output workspace)
+GCP_ENV=%%ENV
 
 # Define properties
 GCP_PROJECT=${project_id}

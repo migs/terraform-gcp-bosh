@@ -6,12 +6,3 @@ data "terraform_remote_state" "%%PROJECT" {
     project = "%%PROJECT"
   }
 }
-
-output "workspace" {
-  value = "${data.terraform_remote_state.stuart-finkit.workspace}"
-}
-
-output "service_account_key" {
-  value = "${data.terraform_remote_state.stuart-finkit.service_account_key}"
-  sensitive = true
-}

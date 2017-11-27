@@ -30,3 +30,4 @@ The following outputs are defined:
 
 `bosh-bastion-hostname`
 `bosh-bastion-public-ip`
+`service_account_key`
