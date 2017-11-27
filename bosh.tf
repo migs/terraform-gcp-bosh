@@ -73,8 +73,8 @@ resource "google_compute_instance" "bosh-bastion" {
   }
 
   provisioner "file" {
-    content = "${base64decode(var.service_account_key)}"
-    destination = "${var.home}/${var.service_account}-${var.project}.key.json"
+    content = "${base64decode(google_service_account_key.automated.private_key)}"
+    destination = "${var.home}/${google_service_account.automated.account_id}-${var.project}.key.json"
     connection {
       user = "vagrant"
       private_key = "${var.ssh-privatekey == "" ? file("${var.home}/.ssh/google_compute_engine") : var.ssh-privatekey}"
@@ -94,7 +94,7 @@ resource "google_compute_instance" "bosh-bastion" {
     inline = [
       "chmod +x ${var.home}/*.sh",
       "sed -i 's/%%PROJECT/${var.project}/' ${var.home}/terraform.tf",
-      "sed -i 's/%%SERVICE_ACCOUNT_ID/${var.service_account}/' ${var.home}/terraform.tf",
+      "sed -i 's/%%SERVICE_ACCOUNT_ID/${google_service_account.automated.account_id}/' ${var.home}/terraform.tf",
       "sed -i 's/%%ENV/${var.prefix}/' ${var.home}/cloud-config.yml",
     ]
     connection {
