@@ -13,3 +13,18 @@ output "bosh-db-instance-name" {
 output "bosh-db-instance-ip" {
   value = "${module.bosh-db.db-instance-ip}"
 }
+
+output "bosh-db-bosh-password" {
+  value = "${random_string.bosh-password.result}"
+  sensitive = true
+}
+
+output "bosh-db-uaa-password" {
+  value = "${random_string.uaa-password.result}"
+  sensitive = true
+}
+
+output "bosh-db-credhub-password" {
+  value = "${random_string.credhub-password.result}"
+  sensitive = true
+}
