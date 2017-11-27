@@ -92,6 +92,7 @@ resource "google_compute_instance" "bosh-bastion" {
 
   provisioner "remote-exec" {
     inline = [
+      "gcloud auth activate-service-account --key-file=${google_service_account.automated.account_id}-${var.project}.key.json",
       "chmod +x ${var.home}/*.sh",
       "sed -i 's/%%PROJECT/${var.project}/' ${var.home}/terraform.tf",
       "sed -i 's/%%SERVICE_ACCOUNT_ID/${google_service_account.automated.account_id}/' ${var.home}/terraform.tf",
