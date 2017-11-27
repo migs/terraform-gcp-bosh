@@ -3,7 +3,7 @@ module "bosh-db" {
   project = "${var.project}"
   region = "${var.region}"
   prefix = "${var.prefix}"
-  ha = "${var.ha}"
+  ha = "${var.db-ha}"
   db-instance-name = "bosh"
 }
 

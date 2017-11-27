@@ -1,7 +1,6 @@
 variable "project" { }
 variable "region" { }
 variable "prefix" { default = "default" }
-variable "ha" { default = "false" }
 variable "network" { default = "default" }
 variable "image" { default = "ubuntu-1604-lts" }
 variable "bosh-version" { default = "2.0.45" }
@@ -18,8 +17,10 @@ variable "bosh-machine_type" { default = "f1-micro" }
 variable "ssh-privatekey" { default = "" }
 variable "db-version" { default = "MYSQL_5_7" }
 variable "db-tier" { default = "db-g1-small" }
+variable "db-ha" { }
 
 # Pass-Through variables for `terraform-gcp-natgateway`
+variable "zones" { default = "1" }
 variable "nat-gateway-image" { default = "debian-cloud/debian-8" }
 variable "nat-gateway-machine_type" { default = "f1-micro" }
 variable "squid_enabled" { default = false }
