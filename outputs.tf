@@ -1,5 +1,5 @@
 output "bosh-bastion-hostname" {
-  value = "${google_compute_instancebosh-bastion.name}"
+  value = "${google_compute_instance.bosh-bastion.name}"
 }
 
 output "bosh-bastion-public-ip" {
