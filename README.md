@@ -15,3 +15,18 @@ module "terraform-gcp-bosh" {
 ```
 
 In the above example, a service-account named `automated` is created with the `roles/owner` role. This is used to pre-load your bosh-bastion with a service-account key which is ready to be used to create your bosh director. The name and role can be overridden where required.
+
+## High Availability
+
+By passing the `ha` variable as `true`, 3 NAT gateways will be created instead of 1
+
+## Variables
+
+See `variables.tf` for a complete list of variables that can be overridden as required.
+
+## Outputs
+
+The following outputs are defined:
+
+`bosh-bastion-hostname`
+`bosh-bastion-public-ip`
