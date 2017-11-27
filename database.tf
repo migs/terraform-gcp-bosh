@@ -4,5 +4,5 @@ module "bosh-db" {
   region = "${var.region}"
   prefix = "${var.prefix}"
   ha = "${var.ha}"
-  db-name = "bosh"
+  db-instance-name = "bosh"
 }
