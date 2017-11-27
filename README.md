@@ -31,3 +31,7 @@ The following outputs are defined:
 `bosh-bastion-hostname`
 `bosh-bastion-public-ip`
 `service_account_key`
+
+## Known Issues
+
+1. This module will fail if the `asia-southeast1` region is selected and `ha` is set to `true`, as `asia-southeast1` only has 2 zones.
