@@ -16,6 +16,17 @@ variable "service_account_name" { default = "automated" }
 variable "service_account_role" { default = "roles/owner" }
 variable "bosh-machine_type" { default = "f1-micro" }
 variable "ssh-privatekey" { default = "" }
+
+# Pass-Through variables for `terraform-gcp-natgateway`
+variable "nat-gateway-image" { default = "debian-cloud/debian-8" }
+variable "nat-gateway-machine_type" { default = "f1-micro" }
+variable "squid_enabled" { default = false }
+variable "squid_config" { default = "" }
+variable "tags" { default = ["nat","internal"] }
+variable "priority" { default = "800" }
+variable "route-tag" { default = "no-ip" }
+
+# Region & Zone Map
 variable "region_params" {
   type = "map"
   default {
