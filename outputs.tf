@@ -44,3 +44,15 @@ output "bosh-control-gw" {
 output "nat-gateway-ips" {
   value = "${module.terraform-gcp-natgateway.nat-gateway-ips}"
 }
+
+output "bosh-db-type" {
+  value = "${lookup(var.database_params["type"], var.db-version)}"
+}
+
+output "bosh-db-adapter" {
+  value = "${lookup(var.database_params["bosh-adapter"], var.db-version)}"
+}
+
+output "bosh-db-port" {
+  value = "${lookup(var.database_params["port"], var.db-version)}"
+}

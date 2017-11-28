@@ -34,6 +34,10 @@ variable "route-tag" { default = "no-ip" }
 variable "database_params" {
   type = "map"
   default {
+    type {
+      MYSQL_5_7 = "mysql"
+      POSTGRES_9_6 = "postgres"
+    }
     bosh-adapter {
       MYSQL_5_7 = "mysql2"
       POSTGRES_9_6 = "postgres"
