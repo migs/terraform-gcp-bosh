@@ -1,8 +1,9 @@
 # Google Cloud Platform BOSH Bastion & NAT Gateway Terraform Module
 
-A Terraform Module for creating a BOSH Bastion preloaded with the scripts required to build a BOSH Director, using the ['bosh-deployment'](https://github.com/cloudfoundry/bosh-deployment) repo.
+A Terraform Module for creating a BOSH Bastion preloaded with the scripts required to build a BOSH Director, using the ['bosh-deployment'](https://github.com/cloudfoundry/bosh-deployment) repo. This BOSH bastion will be configured with an external Cloud SQL database.
 
 This module uses the ['terraform-gcp-natgateway'](https://github.com/migs/terraform-gcp-natgateway) module to provide the NAT Gateway configuration.
+This module uses the ['terraform-gcp-database'](https://github.com/migs/terraform-gcp-database) module to provide the Cloud SQL database.
 
 ## Usage
 
@@ -18,7 +19,8 @@ In the above example, a service-account named `automated` is created with the `r
 
 ## High Availability
 
-By passing the `ha` variable as `true`, 3 NAT Gateways will be created instead of 1
+By passing the `ha` variable as `true`, an additional failover instance of the Bosh Database will be created.
+By passing the `zones` variable, you can specify how many NAT Gateways are created (one per zone for a given region).
 
 ## Variables
 
@@ -31,7 +33,3 @@ The following outputs are defined:
 `bosh-bastion-hostname`
 `bosh-bastion-public-ip`
 `service_account_key`
-
-## Known Issues
-
-1. This module will fail if the `asia-southeast1` region is selected and `ha` is set to `true`, as `asia-southeast1` only has 2 zones.
