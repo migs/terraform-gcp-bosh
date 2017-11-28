@@ -28,3 +28,15 @@ output "bosh-db-credhub-password" {
   value = "${random_string.bosh-credhub-password.result}"
   sensitive = true
 }
+
+output "bosh-director-ip" {
+  value = "{var.director-ip}"
+}
+
+output "bosh-control-cidr" {
+  value = "{var.control-cidr}"
+}
+
+output "bosh-control-gw" {
+  value = "{var.control-gw}"
+}

@@ -9,6 +9,7 @@ variable "terraform-version" { default = "0.11.0" }
 variable "yaml-version" { default = "1.13.1" }
 variable "home" { default = "/home/vagrant" }
 variable "control-cidr" { default = "10.0.0.0/24" }
+variable "control-gw" { default = "10.0.0.1" }
 variable "ert-cidr" { default = "10.10.0.0/22" }
 variable "director-ip" { default = "10.0.0.6" }
 variable "service_account_name" { default = "automated" }

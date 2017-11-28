@@ -2,6 +2,16 @@
 
 GCP_ENV=%%ENV
 
+# Extract variables from terraform state
+terraform refresh
+BOSH_DB_HOST=$(terraform output bosh-db-instance-ip)
+BOSH_DB_BOSH_PASSWORD=$(terraform output bosh-db-bosh-password)
+BOSH_DB_CREDHUB_PASSWORD=$(terraform output bosh-db-credhub-password)
+BOSH_DB_UAA_PASSWORD=$(terraform output bosh-db-uaa-password)
+BOSH_DIRECTOR_IP=$(terraform output bosh-director-ip)
+GCP_CONTROL_CIDR=$(terraform output bosh-control-cidr)
+GCP_CONTROL_GW=$(terraform output bosh-control-gw)
+
 # Define properties
 GCP_PROJECT=${project_id}
 GCP_REGION=${region}
@@ -21,10 +31,16 @@ bosh int bosh-deployment/bosh.yml \
     -o bosh-deployment/gcp/cpi.yml \
     -o bosh-deployment/uaa.yml \
     -o bosh-deployment/credhub.yml \
+    -o bosh-deployment/misc/external-db.yml \
+    -o bosh-support/bosh-uaa-credhub-external-db.yml \
+    -v external_db_host=${BOSH_DB_HOST} \
+    -v external_db_password=${BOSH_DB_BOSH_PASSWORD} \
+    -v external_db_credhub_password=${BOSH_DB_CREDHUB_PASSWORD} \
+    -v external_db_uaa=${BOSH_DB_UAA_PASSWORD} \
     -v director_name=${GCP_PROJECT} \
-    -v internal_cidr=10.0.0.0/26 \
-    -v internal_gw=10.0.0.1 \
-    -v internal_ip=10.0.0.6 \
+    -v internal_cidr=${GCP_CONTROL_CIDR} \
+    -v internal_gw=${GCP_CONTROL_GW} \
+    -v internal_ip=${BOSH_DIRECTOR_IP} \
     --var-file  gcp_credentials_json=${SERVICE_ACCOUNT}.key.json \
     -v project_id=${GCP_PROJECT} \
     -v zone=${GCP_ZONE} \
@@ -39,11 +55,17 @@ bosh create-env bosh-deployment/bosh.yml \
     -o bosh-deployment/gcp/cpi.yml \
     -o bosh-deployment/uaa.yml \
     -o bosh-deployment/credhub.yml \
+    -o bosh-deployment/misc/external-db.yml \
+    -o bosh-support/bosh-uaa-credhub-external-db.yml \
+    -v external_db_host=${BOSH_DB_HOST} \
+    -v external_db_password=${BOSH_DB_BOSH_PASSWORD} \
+    -v external_db_credhub_password=${BOSH_DB_CREDHUB_PASSWORD} \
+    -v external_db_uaa=${BOSH_DB_UAA_PASSWORD} \
     -v director_name=${GCP_PROJECT} \
-    -v internal_cidr=10.0.0.0/26 \
-    -v internal_gw=10.0.0.1 \
-    -v internal_ip=10.0.0.6 \
-    --var-file gcp_credentials_json=${SERVICE_ACCOUNT}.key.json \
+    -v internal_cidr=${GCP_CONTROL_CIDR} \
+    -v internal_gw=${GCP_CONTROL_GW} \
+    -v internal_ip=${BOSH_DIRECTOR_IP} \
+    --var-file  gcp_credentials_json=${SERVICE_ACCOUNT}.key.json \
     -v project_id=${GCP_PROJECT} \
     -v zone=${GCP_ZONE} \
     -v tags=[internal,no-ip] \
