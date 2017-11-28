@@ -30,13 +30,13 @@ output "bosh-db-credhub-password" {
 }
 
 output "bosh-director-ip" {
-  value = "{var.director-ip}"
+  value = "${var.director-ip}"
 }
 
 output "bosh-control-cidr" {
-  value = "{var.control-cidr}"
+  value = "${var.control-cidr}"
 }
 
 output "bosh-control-gw" {
-  value = "{var.control-gw}"
+  value = "${var.control-gw}"
 }
