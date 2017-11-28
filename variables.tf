@@ -17,7 +17,7 @@ variable "bosh-machine_type" { default = "f1-micro" }
 variable "ssh-privatekey" { default = "" }
 variable "db-version" { default = "MYSQL_5_7" }
 variable "db-tier" { default = "db-g1-small" }
-variable "db-ha" { }
+variable "db-ha" { default = false }
 
 # Pass-Through variables for `terraform-gcp-natgateway`
 variable "zones" { default = "1" }
