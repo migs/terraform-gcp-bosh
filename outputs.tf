@@ -40,3 +40,7 @@ output "bosh-control-cidr" {
 output "bosh-control-gw" {
   value = "${var.control-gw}"
 }
+
+output "nat-gateway-ips" {
+  value = "${module.terraform-gcp-natgateway.nat-gateway-ips}"
+}
