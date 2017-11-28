@@ -8,17 +8,17 @@ data "terraform_remote_state" "%%PROJECT" {
 }
 
 output "bosh-db-bosh-password" {
-  value = "${terraform_remote_state.%%PROJECT.bosh-db-bosh-password}"
+  value = "${data.terraform_remote_state.%%PROJECT.bosh-db-bosh-password}"
 }
 
 output "bosh-db-credhub-password" {
-  value = "${terraform_remote_state.%%PROJECT.bosh-db-bosh-password}"
+  value = "${data.terraform_remote_state.%%PROJECT.bosh-db-bosh-password}"
 }
 
 output "bosh-db-uaa-password" {
-  value = "${terraform_remote_state.%%PROJECT.bosh-db-bosh-password}"
+  value = "${data.terraform_remote_state.%%PROJECT.bosh-db-bosh-password}"
 }
 
 output "bosh-db-instance-ip" {
-  value = "${terraform_remote_state.%%PROJECT.bosh-db-instance-ip}"
+  value = "${data.terraform_remote_state.%%PROJECT.bosh-db-instance-ip}"
 }
