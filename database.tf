@@ -36,7 +36,7 @@ resource "random_string" "bosh-password" {
 resource "google_sql_user" "bosh" {
   name = "bosh"
   instance = "${module.bosh-db.db-instance-name}"
-  host = "${module.terraform-gcp-natgateway.nat-gateway-ips}"
+  host = "%"
   password = "${random_string.bosh-password.result}"
 }
 
