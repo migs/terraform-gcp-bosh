@@ -37,3 +37,15 @@ output "bosh-control-cidr" {
 output "bosh-control-gw" {
   value = "${data.terraform_remote_state.%%PROJECT.bosh-control-gw}"
 }
+
+output "bosh-db-type" {
+  value = "${data.terraform_remote_state.%%PROJECT.bosh-db-type}"
+}
+
+output "bosh-db-port" {
+  value = "${data.terraform_remote_state.%%PROJECT.bosh-db-port}"
+}
+
+output "bosh-db-adapter" {
+  value = "${data.terraform_remote_state.%%PROJECT.bosh-db-adapter}"
+}
