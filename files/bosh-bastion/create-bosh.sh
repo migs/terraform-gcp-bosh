@@ -5,6 +5,7 @@ GCP_ENV=%%ENV
 # Extract variables from terraform state
 terraform refresh
 BOSH_DB_HOST=$(terraform output bosh-db-instance-ip)
+BOSH_DB_PORT=$(terraform output bosh-db-port)
 BOSH_DB_TYPE=$(terraform output bosh-db-type)
 BOSH_DB_ADAPTER=$(terraform output bosh-db-adapter)
 BOSH_DB_BOSH_PASSWORD=$(terraform output bosh-db-bosh-password)
@@ -36,6 +37,7 @@ bosh int bosh-deployment/bosh.yml \
     -o bosh-deployment/misc/external-db.yml \
     -o bosh-support/bosh-uaa-credhub-external-db.yml \
     -v external_db_host=${BOSH_DB_HOST} \
+    -v external_db_port=${BOSH_DB_PORT} \
     -v external_db_adapter=${BOSH_DB_ADAPTER} \
     -v external_db_name="bosh_db" \
     -v external_db_user="bosh" \
@@ -69,9 +71,19 @@ bosh create-env bosh-deployment/bosh.yml \
     -o bosh-deployment/misc/external-db.yml \
     -o bosh-support/bosh-uaa-credhub-external-db.yml \
     -v external_db_host=${BOSH_DB_HOST} \
+    -v external_db_port=${BOSH_DB_PORT} \
+    -v external_db_adapter=${BOSH_DB_ADAPTER} \
+    -v external_db_name="bosh_db" \
+    -v external_db_user="bosh" \
     -v external_db_password=${BOSH_DB_BOSH_PASSWORD} \
+    -v external_db_credhub_name="bosh_credhub_db" \
+    -v external_db_credhub_user="bosh_credhub" \
     -v external_db_credhub_password=${BOSH_DB_CREDHUB_PASSWORD} \
-    -v external_db_uaa=${BOSH_DB_UAA_PASSWORD} \
+    -v external_db_credhub_type=${BOSH_DB_TYPE} \
+    -v external_db_uaa_name="bosh_uaa_db" \
+    -v external_db_uaa_user="bosh_uaa" \
+    -v external_db_uaa_password=${BOSH_DB_UAA_PASSWORD} \
+    -v external_db_uaa_type=${BOSH_DB_TYPE} \
     -v director_name=${GCP_PROJECT} \
     -v internal_cidr=${GCP_CONTROL_CIDR} \
     -v internal_gw=${GCP_CONTROL_GW} \
