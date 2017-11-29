@@ -82,7 +82,7 @@ resource "google_compute_instance" "bosh-bastion" {
   }
 
   provisioner "file" {
-    content = "${data.template_file.bosh-properties}"
+    content = "${data.template_file.bosh-properties.rendered}"
     destination = "${var.home}/bosh.properties}"
     connection {
       user = "vagrant"
