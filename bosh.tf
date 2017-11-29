@@ -82,6 +82,15 @@ resource "google_compute_instance" "bosh-bastion" {
   }
 
   provisioner "file" {
+    content = "${data.template_file.bosh.properties}"
+    destination = "${var.home}/bosh.properties}"
+    connection {
+      user = "vagrant"
+      private_key = "${var.ssh-privatekey == "" ? file("${var.home}/.ssh/google_compute_engine") : var.ssh-privatekey}"
+    }
+  }
+
+  provisioner "file" {
     source = "${path.module}/files/bosh-bastion/"
     destination = "${var.home}/"
     connection {
@@ -97,7 +106,6 @@ resource "google_compute_instance" "bosh-bastion" {
       "sed -i 's/%%PROJECT/${var.project}/' ${var.home}/terraform.tf",
       "sed -i 's/%%SERVICE_ACCOUNT_ID/${google_service_account.automated.account_id}/' ${var.home}/terraform.tf",
       "sed -i 's/%%ENV/${var.prefix}/' ${var.home}/cloud-config.yml",
-      "sed -i 's/%%ENV/${var.prefix}/' ${var.home}/create-bosh.sh",
     ]
     connection {
       user = "vagrant"
