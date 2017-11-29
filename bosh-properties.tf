@@ -2,9 +2,9 @@ data "template_file" "bosh-properties" {
   template = <<EOF
 #!/usr/bin/env bash
 export BOSH_DB_HOST=$${db-instance-ip}
-export BOSH_DB_PORT=$${db-port)}
-export BOSH_DB_TYPE=$${db-type)}
-export BOSH_DB_ADAPTER=$${db-adapter)}
+export BOSH_DB_PORT=$${db-port}
+export BOSH_DB_TYPE=$${db-type}
+export BOSH_DB_ADAPTER=$${db-adapter}
 export BOSH_DIRECTOR_IP=$${var.director-ip}
 export GCP_CONTROL_CIDR=$${var.control-cidr}
 export GCP_CONTROL_GW=$${var.control-gw}
