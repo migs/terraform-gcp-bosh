@@ -17,6 +17,6 @@ EOF
     db-instance-ip = "${module.bosh-db.db-instance-ip}"
     db-port = "${lookup(var.database_params["port"], var.db-version)}"
     db-type = "${lookup(var.database_params["type"], var.db-version)}"
-    db-adapter = "${lookup(var.database_params["adapter"], var.db-version)}"
+    db-adapter = "${lookup(var.database_params["bosh-adapter"], var.db-version)}"
   }
 }
