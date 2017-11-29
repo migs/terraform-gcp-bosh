@@ -6,14 +6,6 @@ output "bosh-bastion-public-ip" {
   value = "${google_compute_address.bosh-bastion-address.address}"
 }
 
-output "bosh-db-instance-name" {
-  value = "${module.bosh-db.db-instance-name}"
-}
-
-output "bosh-db-instance-ip" {
-  value = "${module.bosh-db.db-instance-ip}"
-}
-
 output "bosh-db-bosh-password" {
   value = "${random_string.bosh-password.result}"
   sensitive = true
@@ -29,30 +21,6 @@ output "bosh-db-credhub-password" {
   sensitive = true
 }
 
-output "bosh-director-ip" {
-  value = "${var.director-ip}"
-}
-
-output "bosh-control-cidr" {
-  value = "${var.control-cidr}"
-}
-
-output "bosh-control-gw" {
-  value = "${var.control-gw}"
-}
-
 output "nat-gateway-ips" {
   value = "${module.terraform-gcp-natgateway.nat-gateway-ips}"
-}
-
-output "bosh-db-type" {
-  value = "${lookup(var.database_params["type"], var.db-version)}"
-}
-
-output "bosh-db-adapter" {
-  value = "${lookup(var.database_params["bosh-adapter"], var.db-version)}"
-}
-
-output "bosh-db-port" {
-  value = "${lookup(var.database_params["port"], var.db-version)}"
 }

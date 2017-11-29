@@ -1,19 +1,6 @@
 #!/bin/bash -eu
 
-GCP_ENV=%%ENV
-
-# Extract variables from terraform state
-terraform refresh
-BOSH_DB_HOST=$(terraform output bosh-db-instance-ip)
-BOSH_DB_PORT=$(terraform output bosh-db-port)
-BOSH_DB_TYPE=$(terraform output bosh-db-type)
-BOSH_DB_ADAPTER=$(terraform output bosh-db-adapter)
-BOSH_DB_BOSH_PASSWORD=$(terraform output bosh-db-bosh-password)
-BOSH_DB_CREDHUB_PASSWORD=$(terraform output bosh-db-credhub-password)
-BOSH_DB_UAA_PASSWORD=$(terraform output bosh-db-uaa-password)
-BOSH_DIRECTOR_IP=$(terraform output bosh-director-ip)
-GCP_CONTROL_CIDR=$(terraform output bosh-control-cidr)
-GCP_CONTROL_GW=$(terraform output bosh-control-gw)
+source ./bosh.properties
 
 # Define properties
 GCP_PROJECT=${project_id}
