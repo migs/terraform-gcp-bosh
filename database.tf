@@ -5,7 +5,7 @@ module "bosh-db" {
   prefix = "${var.prefix}"
   ha = "${var.db-ha}"
   db-instance-name = "bosh"
-  authorized_networks = ["${module.terraform-gcp-natgateway.nat-gateway-ips}"]
+  authorized_networks = "${join("," module.terraform-gcp-natgateway.nat-gateway-ips)}"
 }
 
 resource "google_sql_database" "bosh_db" {
