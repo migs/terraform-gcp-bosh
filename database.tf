@@ -5,6 +5,7 @@ module "bosh-db" {
   prefix = "${var.prefix}"
   ha = "${var.db-ha}"
   db-instance-name = "bosh"
+  authorized_networks = "${module.nat-gateway-ips["0"]}"
 }
 
 resource "google_sql_database" "bosh_db" {
