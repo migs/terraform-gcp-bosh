@@ -1,6 +1,6 @@
 resource "google_service_account" "automated" {
   project = "${var.project}"
-  account_id = "${var.service_account_name}"
+  account_id = "${var.prefix}-${var.service_account_name}"
   display_name = "Automated Service Account"
 }
 
