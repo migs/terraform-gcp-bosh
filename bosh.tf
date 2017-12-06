@@ -64,14 +64,12 @@ resource "google_compute_instance" "bosh-bastion" {
       image = "${var.image}"
     }
   }
-
   network_interface {
     subnetwork = "${google_compute_subnetwork.control-subnet-1.name}"
     access_config {
       nat_ip = "${google_compute_address.bosh-bastion-address.address}"
     }
   }
-
   provisioner "file" {
     content = "${base64decode(google_service_account_key.automated.private_key)}"
     destination = "${var.home}/${google_service_account.automated.account_id}-${var.project}.key.json"
@@ -80,7 +78,6 @@ resource "google_compute_instance" "bosh-bastion" {
       private_key = "${var.ssh-privatekey == "" ? file("${var.home}/.ssh/google_compute_engine") : var.ssh-privatekey}"
     }
   }
-
   provisioner "file" {
     content = "${data.template_file.bosh-properties.rendered}"
     destination = "${var.home}/bosh.properties"
@@ -89,7 +86,6 @@ resource "google_compute_instance" "bosh-bastion" {
       private_key = "${var.ssh-privatekey == "" ? file("${var.home}/.ssh/google_compute_engine") : var.ssh-privatekey}"
     }
   }
-
   provisioner "file" {
     source = "${path.module}/files/bosh-bastion/"
     destination = "${var.home}/"
@@ -98,7 +94,6 @@ resource "google_compute_instance" "bosh-bastion" {
       private_key = "${var.ssh-privatekey == "" ? file("${var.home}/.ssh/google_compute_engine") : var.ssh-privatekey}"
     }
   }
-
   provisioner "remote-exec" {
     inline = [
       "gcloud auth activate-service-account --key-file=${google_service_account.automated.account_id}-${var.project}.key.json",
@@ -111,8 +106,15 @@ resource "google_compute_instance" "bosh-bastion" {
       user = "vagrant"
       private_key = "${var.ssh-privatekey == "" ? file("${var.home}/.ssh/google_compute_engine") : var.ssh-privatekey}"
     }
-}
-
+  }
+  service_account {
+    scopes = [ 
+      "compute-rw",
+      "storage-rw",
+      "logging-write",
+      "monitoring-write",
+    ]   
+  }
 
   metadata_startup_script = <<EOT
 #!/bin/bash
