@@ -9,3 +9,7 @@ output "bosh-bastion-public-ip" {
 output "nat-gateway-ips" {
   value = "${module.terraform-gcp-natgateway.nat-gateway-ips}"
 }
+
+output "bosh-network-link" {
+  value = "${google_compute_network.bosh.self_link}"
+}
