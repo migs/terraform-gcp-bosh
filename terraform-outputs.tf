@@ -13,3 +13,7 @@ output "nat-gateway-ips" {
 output "bosh-network-link" {
   value = "${google_compute_network.bosh.self_link}"
 }
+
+output "db-instance-name" {
+  value = "${module.bosh-db.db-instance-name}"
+}
