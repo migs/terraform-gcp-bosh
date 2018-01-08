@@ -5,6 +5,7 @@ module "bosh-db" {
   prefix = "${var.prefix}"
   ha = "${var.db-ha}"
   db-instance-name = "bosh"
+  db-version = "${var.db-version}"
   authorized_networks = "${module.terraform-gcp-natgateway.nat-gateway-ips["0"]}"
 }
 
