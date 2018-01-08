@@ -184,10 +184,6 @@ export region=$${zone%-*}
 gcloud config set compute/zone $${zone}
 gcloud config set compute/region $${region}
 
-if [[ ! -d bosh-deployment ]]; then
-    git clone https://github.com/cloudfoundry/bosh-deployment
-fi
-
 bosh -v
 EOF
 

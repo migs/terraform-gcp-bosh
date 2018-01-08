@@ -11,9 +11,13 @@ GCP_SUBNETWORK=${GCP_ENV}-control-${GCP_REGION}
 SERVICE_ACCOUNT=${GCP_ENV}-automated-${GCP_PROJECT}
 # End of properties
 
-cd bosh-deployment
-git pull
-cd ..
+if [[ ! -d bosh-deployment ]]; then
+    git clone https://github.com/cloudfoundry/bosh-deployment
+else
+    cd bosh-deployment
+    git pull
+    cd ..
+fi
 
 echo "==================================================================="
 bosh int bosh-deployment/bosh.yml \
