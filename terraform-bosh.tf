@@ -153,6 +153,11 @@ tar xvf credhub-linux-${var.credhub-version}.tgz
 sudo mv credhub /usr/local/bin/credhub
 rm -f credhub-linux-${var.credhub-version}.tgz
 
+# install fly cli
+curl -OL https://github.com/concourse/concourse/releases/download/v${var.fly-version}/fly_linux_amd64
+chmod +x fly_linux_amd64
+sudo mv fly_linux_amd64 /usr/local/bin/fly
+
 # install yaml
 curl -OL https://github.com/mikefarah/yaml/releases/download/${var.yaml-version}/yaml_linux_amd64
 chmod +x yaml*
