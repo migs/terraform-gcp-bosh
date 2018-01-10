@@ -76,6 +76,21 @@ networks:
       network_name: %%ENV-bosh
       subnetwork_name: %%ENV-ert-europe-west2
       tags: [internal, no-ip]
+- name: concourse
+  type: manual
+  subnets:
+  - range: 10.20.0.0/28
+    gateway: 10.20.0.1
+    azs:
+    - z1
+    - z2
+    - z3
+    dns: [8.8.8.8, 8.8.4.4]
+    cloud_properties:
+      ephemeral_external_ip: false
+      network_name: %%ENV-bosh
+      subnetwork_name: %%ENV-concourse-europe-west2
+      tags: [internal, no-ip]
 - name: compilation
   type: manual
   subnets:
