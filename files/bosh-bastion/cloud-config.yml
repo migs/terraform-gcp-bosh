@@ -149,7 +149,7 @@ vm_extensions:
   name: preemptible
 - cloud_properties:
     backend_service: concourse-web
-  name: concourse-web-lb
+  name: %%ENV-concourse-web-lb
 
 
 vm_types:
