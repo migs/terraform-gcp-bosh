@@ -3,11 +3,7 @@ output "bosh-bastion-hostname" {
 }
 
 output "bosh-bastion-public-ip" {
-  value = "${google_compute_address.bosh-bastion-address.address}"
-}
-
-output "bosh-bastion-private-ip" {
-  value = "${google_compute_instance.bosh-bastion.network_interface.0.address}"
+  value = "${google_compute_instance.bosh-bastion.network_interface.0.access_config.0.assigned_nat_ip}"
 }
 
 output "nat-gateway-ips" {
