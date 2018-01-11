@@ -6,6 +6,9 @@ output "bosh-bastion-public-ip" {
   value = "${google_compute_address.bosh-bastion-address.address}"
 }
 
+output "bosh-bastion-private-ip" {
+  value = "${google_compute_instance.bosh-bastion.network_interface.0.address}"
+
 output "nat-gateway-ips" {
   value = "${module.terraform-gcp-natgateway.nat-gateway-ips}"
 }
