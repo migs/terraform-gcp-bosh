@@ -2,9 +2,7 @@ module "bosh-db" {
   source = "github.com/migs/terraform-gcp-database"
   project = "${var.project}"
   region = "${var.region}"
-  prefix = "${var.prefix}"
   ha = "${var.db-ha}"
-  db-instance-name = "bosh"
   db-version = "${var.db-version}"
   authorized_networks = "${module.terraform-gcp-natgateway.nat-gateway-ips["0"]}"
 }
