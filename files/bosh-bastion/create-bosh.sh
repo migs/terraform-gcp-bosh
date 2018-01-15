@@ -91,3 +91,6 @@ eval $(./login.sh)
 
 bosh upload-stemcell https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent
 bosh update-cloud-config cloud-config.yml --non-interactive
+
+gsutil cp director-state.json gs://${GCP_PROJECT}-bosh-state/
+gsutil cp director-creds.yml gs://${GCP_PROJECT}-bosh-state/
