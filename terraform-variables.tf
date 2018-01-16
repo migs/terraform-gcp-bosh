@@ -14,7 +14,6 @@ variable "control-gw" { default = "10.0.0.1" }
 variable "ert-cidr" { default = "10.10.0.0/22" }
 variable "director-ip" { default = "10.0.0.6" }
 variable "service_account_name" { default = "automated" }
-variable "service_account_role" { default = "roles/editor" }
 variable "bosh-machine_type" { default = "f1-micro" }
 variable "ssh-privatekey" { default = "" }
 variable "db-version" { default = "MYSQL_5_7" }
