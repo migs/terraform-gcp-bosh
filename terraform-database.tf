@@ -4,7 +4,9 @@ module "bosh-db" {
   region = "${var.region}"
   ha = "${var.db-ha}"
   db-version = "${var.db-version}"
-  authorized_networks = "${module.terraform-gcp-natgateway.nat-gateway-ips["0"]}"
+  authorized_network_0 = "${module.terraform-gcp-natgateway.nat-gateway-ips["0"]}"
+  authorized_network_0 = "${module.terraform-gcp-natgateway.nat-gateway-ips["1"]}"
+  authorized_network_0 = "${module.terraform-gcp-natgateway.nat-gateway-ips["2"]}"
 }
 
 resource "google_sql_database" "bosh_db" {
