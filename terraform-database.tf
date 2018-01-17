@@ -5,8 +5,8 @@ module "bosh-db" {
   ha = "${var.db-ha}"
   db-version = "${var.db-version}"
   authorized_network_0 = "${module.terraform-gcp-natgateway.nat-gateway-ips["0"]}"
-  authorized_network_0 = "${module.terraform-gcp-natgateway.nat-gateway-ips["1"]}"
-  authorized_network_0 = "${module.terraform-gcp-natgateway.nat-gateway-ips["2"]}"
+  authorized_network_1 = "${module.terraform-gcp-natgateway.nat-gateway-ips["1"]}"
+  authorized_network_2 = "${module.terraform-gcp-natgateway.nat-gateway-ips["2"]}"
 }
 
 resource "google_sql_database" "bosh_db" {
