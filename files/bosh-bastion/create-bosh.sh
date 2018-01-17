@@ -19,7 +19,7 @@ else
     cd ..
 fi
 
-for file in director-creds.yml director-state.json do
+for file in director-creds.yml director-state.json; do
     if [[ ! -f ${file} ]]; then
         gsutil cp gs://${GCP_PROJECT}-bosh-state/${file} .
     fi
