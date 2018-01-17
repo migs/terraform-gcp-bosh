@@ -72,7 +72,7 @@ resource "google_compute_instance" "bosh-bastion" {
   }
   provisioner "file" {
     content = "${base64decode(google_service_account_key.automated.private_key)}"
-    destination = "${var.home}/${var.service_account_name}-${var.project}.key.json"
+    destination = "${var.home}/${var.prefix}-${var.service_account_name}-${var.project}.key.json"
     connection {
       user = "vagrant"
       private_key = "${var.ssh-privatekey == "" ? file("${var.home}/.ssh/google_compute_engine") : var.ssh-privatekey}"
