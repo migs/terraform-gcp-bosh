@@ -25,3 +25,8 @@ bosh delete-env bosh-deployment/bosh.yml \
     -v tags=[internal,no-ip] \
     -v network=${GCP_NETWORK} \
     -v subnetwork=${GCP_SUBNETWORK}
+
+for file in director-state.json director-creds.yml; do
+    rm ${file}
+    gsutil rm gs://${GCP_PROJECT}-bosh-state/${file}
+done
