@@ -73,8 +73,8 @@ networks:
     dns: [8.8.8.8, 8.8.4.4]
     cloud_properties:
       ephemeral_external_ip: false
-      network_name: %%ENV-bosh
-      subnetwork_name: %%ENV-ert-europe-west2
+      network_name: bosh
+      subnetwork_name: ert-europe-west2
       tags: [internal, no-ip]
 - name: concourse
   type: manual
@@ -88,8 +88,8 @@ networks:
     dns: [8.8.8.8, 8.8.4.4]
     cloud_properties:
       ephemeral_external_ip: false
-      network_name: %%ENV-bosh
-      subnetwork_name: %%ENV-concourse-europe-west2
+      network_name: bosh
+      subnetwork_name: concourse-europe-west2
       tags: [internal, no-ip]
 - name: compilation
   type: manual
@@ -104,8 +104,8 @@ networks:
     reserved: [10.0.0.1-10.0.0.6]    
     cloud_properties:
       ephemeral_external_ip: false
-      network_name: %%ENV-bosh
-      subnetwork_name: %%ENV-control-europe-west2
+      network_name: bosh
+      subnetwork_name: control-europe-west2
       tags: [internal, no-ip]
       preemptible: true
 
@@ -148,8 +148,8 @@ vm_extensions:
     preemptible: true
   name: preemptible
 - cloud_properties:
-    backend_service: %%ENV-concourse-web
-  name: %%ENV-concourse-web-lb
+    backend_service: concourse-web
+  name: concourse-web-lb
 
 
 vm_types:

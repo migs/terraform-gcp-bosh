@@ -1,22 +1,22 @@
 resource "google_compute_network" "bosh" {
-  name = "${var.prefix}-bosh"
+  name = "bosh"
   auto_create_subnetworks = "false"
 }
 
 resource "google_compute_subnetwork" "control-subnet-1" {
-  name = "${var.prefix}-control-${var.region}"
+  name = "control-${var.region}"
   ip_cidr_range = "${var.control-cidr}"
   network = "${google_compute_network.bosh.self_link}"
 }
 
 resource "google_compute_subnetwork" "ert-subnet-1" {
-  name = "${var.prefix}-ert-${var.region}"
+  name = "ert-${var.region}"
   ip_cidr_range = "${var.ert-cidr}"
   network = "${google_compute_network.bosh.self_link}"
 }
 
 resource "google_compute_firewall" "bosh-bastion" {
-  name = "${var.prefix}-bosh-bastion"
+  name = "bosh-bastion"
   network = "${google_compute_network.bosh.name}"
 
   allow {
@@ -28,7 +28,7 @@ resource "google_compute_firewall" "bosh-bastion" {
 }
 
 resource "google_compute_firewall" "bosh-intra-subnet-open" {
-  name = "${var.prefix}-bosh-intra-subnet-open"
+  name = "bosh-intra-subnet-open"
   network = "${google_compute_network.bosh.name}"
 
   allow {
@@ -49,11 +49,11 @@ resource "google_compute_firewall" "bosh-intra-subnet-open" {
 }
 
 resource "google_compute_address" "bosh-bastion-address" {
-  name = "${var.prefix}-bosh-bastion-address"
+  name = "bosh-bastion-address"
 }
 
 resource "google_compute_instance" "bosh-bastion" {
-  name = "${var.prefix}-bosh-bastion"
+  name = "bosh-bastion"
   machine_type = "${var.bosh-machine_type}"
   zone = "${lookup(var.region_params["${var.region}"],"zone1")}"
 
@@ -72,7 +72,7 @@ resource "google_compute_instance" "bosh-bastion" {
   }
   provisioner "file" {
     content = "${base64decode(google_service_account_key.automated.private_key)}"
-    destination = "${var.home}/${var.prefix}-${var.service_account_name}-${var.project}.key.json"
+    destination = "${var.home}/${var.service_account_name}-${var.project}.key.json"
     connection {
       user = "vagrant"
       private_key = "${var.ssh-privatekey == "" ? file("${var.home}/.ssh/google_compute_engine") : var.ssh-privatekey}"
@@ -96,9 +96,8 @@ resource "google_compute_instance" "bosh-bastion" {
   }
   provisioner "remote-exec" {
     inline = [
-      "gcloud auth activate-service-account --key-file=${var.prefix}-${var.service_account_name}-${var.project}.key.json",
+      "gcloud auth activate-service-account --key-file=${var.service_account_name}-${var.project}.key.json",
       "chmod +x ${var.home}/*.sh",
-      "sed -i 's/%%ENV/${var.prefix}/' ${var.home}/cloud-config.yml",
     ]
     connection {
       user = "vagrant"

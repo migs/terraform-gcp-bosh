@@ -8,7 +8,7 @@ GCP_REGION=${region}
 GCP_ZONE=${zone}
 GCP_NETWORK=${network}
 GCP_SUBNETWORK=${subnetwork}
-SERVICE_ACCOUNT=${GCP_ENV}-automated-${GCP_PROJECT}
+SERVICE_ACCOUNT=automated-${GCP_PROJECT}
 # End of properties
 
 bosh delete-env bosh-deployment/bosh.yml \

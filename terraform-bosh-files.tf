@@ -8,7 +8,6 @@ export BOSH_DB_ADAPTER=$${db-adapter}
 export BOSH_DIRECTOR_IP=$${director-ip}
 export GCP_CONTROL_CIDR=$${control-cidr}
 export GCP_CONTROL_GW=$${control-gw}
-export GCP_ENV=$${prefix}
 export BOSH_DB_BOSH_PASSWORD=$${bosh-password}
 export BOSH_DB_CREDHUB_PASSWORD=$${bosh-credhub-password}
 export BOSH_DB_UAA_PASSWORD=$${bosh-uaa-password}
@@ -21,7 +20,6 @@ EOF
     director-ip = "${var.director-ip}"
     control-cidr = "${var.control-cidr}"
     control-gw = "${var.control-gw}"
-    prefix = "${var.prefix}"
     bosh-password = "${random_string.bosh-password.result}"
     bosh-credhub-password = "${random_string.bosh-credhub-password.result}"
     bosh-uaa-password = "${random_string.bosh-uaa-password.result}"

@@ -7,8 +7,8 @@ GCP_PROJECT=${project_id}
 GCP_REGION=${region}
 GCP_ZONE=${zone}
 GCP_NETWORK=${network}
-GCP_SUBNETWORK=${GCP_ENV}-control-${GCP_REGION}
-SERVICE_ACCOUNT=${GCP_ENV}-automated-${GCP_PROJECT}
+GCP_SUBNETWORK=control-${GCP_REGION}
+SERVICE_ACCOUNT=automated-${GCP_PROJECT}
 # End of properties
 
 if [[ ! -d bosh-deployment ]]; then
