@@ -142,6 +142,9 @@ apt-get install -y git tree jq build-essential ruby ruby-dev openssl unzip
 curl -O "https://repo.stackdriver.com/stack-install.sh"
 sudo bash stack-install.sh --write-gcm
 
+# install UAA CLI
+sudo gem install cf-uaac
+
 # install bosh2
 curl -O https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-${var.bosh-version}-linux-amd64
 chmod +x bosh-cli-*
