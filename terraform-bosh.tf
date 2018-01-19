@@ -171,6 +171,7 @@ rm -f terraform_${var.terraform-version}_linux_amd64.zip
 
 # install vault
 curl -OL https://releases.hashicorp.com/vault/${var.vault-version}/vault_${var.vault-version}_linux_amd64.zip
+unzip vault_${var.vault-version}_linux_amd64.zip
 chmod +x vault
 sudo mv vault /usr/local/bin/vault
 
