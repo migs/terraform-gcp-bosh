@@ -5,6 +5,7 @@ variable "network" { default = "default" }
 variable "image" { default = "ubuntu-1604-lts" }
 variable "bosh-version" { default = "2.0.45" }
 variable "credhub-version" { default = "1.5.3" }
+variable "safe-version" { default = "0.6.2" }
 variable "terraform-version" { default = "0.11.1" }
 variable "fly-version" { default = "3.8.0" }
 variable "yaml-version" { default = "1.13.1" }
