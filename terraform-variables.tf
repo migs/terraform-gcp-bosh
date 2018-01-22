@@ -3,6 +3,7 @@ variable "region" { }
 variable "prefix" { default = "default" }
 variable "network" { default = "default" }
 variable "image" { default = "ubuntu-1604-lts" }
+variable "stackdriver-version" { default = "1.2.0" }
 variable "bosh-version" { default = "2.0.45" }
 variable "credhub-version" { default = "1.5.3" }
 variable "safe-version" { default = "0.6.2" }

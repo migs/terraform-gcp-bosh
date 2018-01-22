@@ -96,7 +96,9 @@ bosh alias-env ${project_id} -e 10.0.0.6 --ca-cert <(bosh int director-creds.yml
 eval $(./login.sh)
 
 bosh upload-stemcell https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent
+bosh upload-release https://github.com/cloudfoundry-community/stackdriver-tools/releases/download/v1.0.2/stackdriver-tools-1.0.2.tgz --non-interactive
 bosh update-cloud-config cloud-config.yml --non-interactive
+bosh update-runtime-config runtime-config.yml --non-interactive
 
 gsutil cp director-state.json gs://${GCP_PROJECT}-bosh-state/
 gsutil cp director-creds.yml gs://${GCP_PROJECT}-bosh-state/

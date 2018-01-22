@@ -25,3 +25,23 @@ EOF
     bosh-uaa-password = "${random_string.bosh-uaa-password.result}"
   }
 }
+
+data "template_file" "runtime-config" {
+  template = <<EOF
+releases:
+- {name: stackdriver-tools, version: $${stackdriver-version}} 
+
+addons:
+- name: stackdriver
+  jobs:
+  - name: google-fluentd
+    release: stackdriver-tools
+  - name: stackdriver-agent
+    release: stackdriver-tools
+  include:
+    deployments: [$${project}]
+EOF
+  vars {
+    stackdriver-version = "${var.stackdriver-version}"
+    project = "${var.project}"
+}
