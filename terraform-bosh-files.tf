@@ -44,4 +44,5 @@ EOF
   vars {
     stackdriver-version = "${var.stackdriver-version}"
     project = "${var.project}"
+  }
 }
