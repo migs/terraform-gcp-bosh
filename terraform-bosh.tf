@@ -185,7 +185,7 @@ sudo mv vault /usr/local/bin/vault
 
 # install safe
 curl -OL https://github.com/starkandwayne/safe/releases/download/v${var.safe-version}/safe-linux-amd64
-mod +x safe-linux-amd64
+chmod +x safe-linux-amd64
 sudo mv safe-linux-amd64 /usr/local/bin/safe
 
 cat > /etc/profile.d/bosh.sh <<'EOF'
