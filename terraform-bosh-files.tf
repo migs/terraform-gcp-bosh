@@ -38,8 +38,6 @@ addons:
     release: stackdriver-tools
   - name: stackdriver-agent
     release: stackdriver-tools
-  include:
-    deployments: [$${project}]
 EOF
   vars {
     stackdriver-version = "${var.stackdriver-version}"
