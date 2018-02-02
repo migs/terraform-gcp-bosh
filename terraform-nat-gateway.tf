@@ -5,4 +5,5 @@ module "terraform-gcp-natgateway" {
   zones = "${var.zones}"
   network = "${google_compute_network.bosh.name}"
   subnetwork = "${google_compute_subnetwork.control-subnet-1.name}"
+  nat-gateway-machine_type = "${var.nat-gateway-machine_type}"
 }
