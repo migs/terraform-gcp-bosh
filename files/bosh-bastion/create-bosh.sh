@@ -1,4 +1,6 @@
-#!/bin/bash -eu
+#!/usr/bin/env bash
+
+set -e
 
 source ./bosh.properties
 
@@ -21,7 +23,9 @@ fi
 
 for file in director-creds.yml director-state.json; do
     if [[ ! -f ${file} ]]; then
-        gsutil cp gs://${GCP_PROJECT}-bosh-state/${file} .
+        if [[ $(gsutil ls gs://${GCP_PROJECT}-bosh-state/${file}) ]]; then
+            gsutil cp gs://${GCP_PROJECT}-bosh-state/${file} .
+        fi
     fi
 done
 
