@@ -74,7 +74,7 @@ bosh create-env bosh-deployment/bosh.yml \
     -v network=$${network} \
     -v subnetwork=$${subnetwork}
 
-bosh alias-env ${project_id} -e $${director-ip} --ca-cert <(bosh int director-creds.yml --path /director_ssl/ca)
+bosh alias-env $${project} -e $${director-ip} --ca-cert <(bosh int director-creds.yml --path /director_ssl/ca)
 eval $(./login.sh)
 
 bosh upload-stemcell https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent
