@@ -87,8 +87,8 @@ resource "google_compute_instance" "bosh-bastion" {
     }
   }
   provisioner "file" {
-    content = "${data.template_file.bosh-properties.rendered}"
-    destination = "${var.home}/bosh.properties"
+    content = "${data.template_file.create-bosh.rendered}"
+    destination = "${var.home}/create-bosh.sh"
     connection {
       user = "vagrant"
       private_key = "${var.ssh-privatekey == "" ? file("${var.home}/.ssh/google_compute_engine") : var.ssh-privatekey}"
