@@ -23,8 +23,6 @@ data "template_file" "create-bosh" {
 
 set -e
 
-source ./bosh.properties
-
 if [[ ! -d bosh-deployment ]]; then
     git clone https://github.com/cloudfoundry/bosh-deployment
 else
