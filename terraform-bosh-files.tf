@@ -102,3 +102,40 @@ EOF
     stackdriver-version = "${var.stackdriver-version}"
   }
 }
+
+data "template_file" "delete-bosh" {
+  template = <<EOF
+#!/usr/bin/env bash
+
+set -e
+
+bosh delete-env bosh-deployment/bosh.yml \
+    --state=director-state.json \
+    --vars-store=director-creds.yml \
+    -o bosh-deployment/gcp/cpi.yml \
+    -v director_name=$${project} \
+    -v internal_cidr=$${control-cidr} \
+    -v internal_gw=$${control-gw} \
+    -v internal_ip=$${director-ip} \
+    --var-file  gcp_credentials_json=$${service-account}.key.json \
+    -v project_id=$${project} \
+    -v zone=$${zone} \
+    -v tags=[internal,no-ip] \
+    -v network=$${network} \
+    -v subnetwork=$${subnetwork}
+
+for file in director-state.json director-creds.yml; do
+    rm -f $file
+    gsutil rm gs://$${project}-bosh-state/$file
+done
+EOF
+  vars  {
+    project = "${var.project}"
+    zone = "${lookup(var.region_params["${var.region}"],"zone1")}"
+    network = "${google_compute_network.bosh.name}"
+    subnetwork = "${google_compute_subnetwork.control-subnet-1.name}"
+    service-account = "${var.service_account_name}-${var.project}"
+    director-ip = "${var.director-ip}"
+    control-cidr = "${var.control-cidr}"
+    control-gw = "${var.control-gw}"
+}
