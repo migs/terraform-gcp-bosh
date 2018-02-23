@@ -138,4 +138,5 @@ EOF
     director-ip = "${var.director-ip}"
     control-cidr = "${var.control-cidr}"
     control-gw = "${var.control-gw}"
+  }
 }
