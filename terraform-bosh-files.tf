@@ -82,6 +82,8 @@ bosh update-runtime-config runtime-config.yml --non-interactive
 
 gsutil cp director-state.json gs://$${project}-bosh-state/
 gsutil cp director-creds.yml gs://$${project}-bosh-state/
+
+set +e
 EOF
   vars {
     project = "${var.project}"
