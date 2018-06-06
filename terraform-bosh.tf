@@ -1,44 +1,44 @@
 resource "google_compute_network" "bosh" {
-  name = "bosh"
+  name                    = "bosh"
   auto_create_subnetworks = "false"
 }
 
 resource "google_compute_subnetwork" "control-subnet-1" {
-  name = "control-${var.region}"
+  name          = "control-${var.region}"
   ip_cidr_range = "${var.control-cidr}"
-  network = "${google_compute_network.bosh.self_link}"
+  network       = "${google_compute_network.bosh.self_link}"
 }
 
 resource "google_compute_subnetwork" "ert-subnet-1" {
-  name = "ert-${var.region}"
+  name          = "ert-${var.region}"
   ip_cidr_range = "${var.ert-cidr}"
-  network = "${google_compute_network.bosh.self_link}"
+  network       = "${google_compute_network.bosh.self_link}"
 }
 
 resource "google_compute_firewall" "bosh-bastion" {
-  name = "bosh-bastion"
+  name    = "bosh-bastion"
   network = "${google_compute_network.bosh.name}"
 
   allow {
     protocol = "tcp"
-    ports = ["22"]
+    ports    = ["22"]
   }
 
   target_tags = ["bosh-bastion"]
 }
 
 resource "google_compute_firewall" "bosh-intra-subnet-open" {
-  name = "bosh-intra-subnet-open"
+  name    = "bosh-intra-subnet-open"
   network = "${google_compute_network.bosh.name}"
 
   allow {
     protocol = "tcp"
-    ports = ["1-65535"]
+    ports    = ["1-65535"]
   }
 
   allow {
     protocol = "udp"
-    ports = ["1-65535"]
+    ports    = ["1-65535"]
   }
 
   allow {
@@ -53,9 +53,9 @@ resource "google_compute_address" "bosh-bastion-address" {
 }
 
 resource "google_compute_instance" "bosh-bastion" {
-  name = "bosh-bastion"
+  name         = "bosh-bastion"
   machine_type = "${var.bosh-machine_type}"
-  zone = "${lookup(var.region_params["${var.region}"],"zone1")}"
+  zone         = "${lookup(var.region_params["${var.region}"],"zone1")}"
 
   tags = ["bosh-bastion", "internal"]
 
@@ -64,69 +64,84 @@ resource "google_compute_instance" "bosh-bastion" {
       image = "${var.image}"
     }
   }
+
   network_interface {
     subnetwork = "${google_compute_subnetwork.control-subnet-1.name}"
+
     access_config {
       nat_ip = "${google_compute_address.bosh-bastion-address.address}"
     }
   }
+
   provisioner "file" {
-    content = "${base64decode(google_service_account_key.automated.private_key)}"
+    content     = "${base64decode(google_service_account_key.automated.private_key)}"
     destination = "${var.home}/${var.service_account_name}-${var.project}.key.json"
+
     connection {
-      user = "vagrant"
+      user        = "vagrant"
       private_key = "${var.ssh-privatekey == "" ? file("${var.home}/.ssh/google_compute_engine") : var.ssh-privatekey}"
     }
   }
+
   provisioner "file" {
-    content = "${data.template_file.runtime-config.rendered}"
+    content     = "${data.template_file.runtime-config.rendered}"
     destination = "${var.home}/runtime-config.yml"
+
     connection {
-      user = "vagrant"
+      user        = "vagrant"
       private_key = "${var.ssh-privatekey == "" ? file("${var.home}/.ssh/google_compute_engine") : var.ssh-privatekey}"
     }
   }
+
   provisioner "file" {
-    content = "${data.template_file.create-bosh.rendered}"
+    content     = "${data.template_file.create-bosh.rendered}"
     destination = "${var.home}/create-bosh.sh"
+
     connection {
-      user = "vagrant"
+      user        = "vagrant"
       private_key = "${var.ssh-privatekey == "" ? file("${var.home}/.ssh/google_compute_engine") : var.ssh-privatekey}"
     }
   }
+
   provisioner "file" {
-    content = "${data.template_file.delete-bosh.rendered}"
+    content     = "${data.template_file.delete-bosh.rendered}"
     destination = "${var.home}/delete-bosh.sh"
+
     connection {
-      user = "vagrant"
+      user        = "vagrant"
       private_key = "${var.ssh-privatekey == "" ? file("${var.home}/.ssh/google_compute_engine") : var.ssh-privatekey}"
     }
   }
+
   provisioner "file" {
-    source = "${path.module}/files/bosh-bastion/"
+    source      = "${path.module}/files/bosh-bastion/"
     destination = "${var.home}/"
+
     connection {
-      user = "vagrant"
+      user        = "vagrant"
       private_key = "${var.ssh-privatekey == "" ? file("${var.home}/.ssh/google_compute_engine") : var.ssh-privatekey}"
     }
   }
+
   provisioner "remote-exec" {
     inline = [
       "gcloud auth activate-service-account --key-file=${var.service_account_name}-${var.project}.key.json",
       "chmod +x ${var.home}/*.sh",
     ]
+
     connection {
-      user = "vagrant"
+      user        = "vagrant"
       private_key = "${var.ssh-privatekey == "" ? file("${var.home}/.ssh/google_compute_engine") : var.ssh-privatekey}"
     }
   }
+
   service_account {
-    scopes = [ 
+    scopes = [
       "compute-rw",
       "storage-rw",
       "logging-write",
       "monitoring-write",
-    ]   
+    ]
   }
 
   metadata_startup_script = <<EOT

@@ -11,9 +11,10 @@ addons:
   - name: stackdriver-agent
     release: stackdriver-tools
 EOF
+
   vars {
     stackdriver-version = "${var.stackdriver-version}"
-    project = "${var.project}"
+    project             = "${var.project}"
   }
 }
 
@@ -85,23 +86,24 @@ gsutil cp director-creds.yml gs://$${project}-bosh-state/
 
 set +e
 EOF
+
   vars {
-    project = "${var.project}"
-    zone = "${lookup(var.region_params["${var.region}"],"zone1")}"
-    network = "${google_compute_network.bosh.name}"
-    subnetwork = "${google_compute_subnetwork.control-subnet-1.name}"
-    service-account = "${var.service_account_name}-${var.project}"
-    db-instance-ip = "${module.bosh-db.db-instance-ip}"
-    db-port = "${lookup(var.database_params["port"], var.db-version)}"
-    db-type = "${lookup(var.database_params["type"], var.db-version)}"
-    db-adapter = "${lookup(var.database_params["bosh-adapter"], var.db-version)}"
-    director-ip = "${var.director-ip}"
-    control-cidr = "${var.control-cidr}"
-    control-gw = "${var.control-gw}"
-    bosh-password = "${random_string.bosh-password.result}"
+    project               = "${var.project}"
+    zone                  = "${lookup(var.region_params["${var.region}"],"zone1")}"
+    network               = "${google_compute_network.bosh.name}"
+    subnetwork            = "${google_compute_subnetwork.control-subnet-1.name}"
+    service-account       = "${var.service_account_name}-${var.project}"
+    db-instance-ip        = "${module.bosh-db.db-instance-ip}"
+    db-port               = "${lookup(var.database_params["port"], var.db-version)}"
+    db-type               = "${lookup(var.database_params["type"], var.db-version)}"
+    db-adapter            = "${lookup(var.database_params["bosh-adapter"], var.db-version)}"
+    director-ip           = "${var.director-ip}"
+    control-cidr          = "${var.control-cidr}"
+    control-gw            = "${var.control-gw}"
+    bosh-password         = "${random_string.bosh-password.result}"
     bosh-credhub-password = "${random_string.bosh-credhub-password.result}"
-    bosh-uaa-password = "${random_string.bosh-uaa-password.result}"
-    stackdriver-version = "${var.stackdriver-version}"
+    bosh-uaa-password     = "${random_string.bosh-uaa-password.result}"
+    stackdriver-version   = "${var.stackdriver-version}"
   }
 }
 
@@ -131,14 +133,15 @@ for file in director-state.json director-creds.yml; do
     gsutil rm gs://$${project}-bosh-state/$file
 done
 EOF
-  vars  {
-    project = "${var.project}"
-    zone = "${lookup(var.region_params["${var.region}"],"zone1")}"
-    network = "${google_compute_network.bosh.name}"
-    subnetwork = "${google_compute_subnetwork.control-subnet-1.name}"
+
+  vars {
+    project         = "${var.project}"
+    zone            = "${lookup(var.region_params["${var.region}"],"zone1")}"
+    network         = "${google_compute_network.bosh.name}"
+    subnetwork      = "${google_compute_subnetwork.control-subnet-1.name}"
     service-account = "${var.service_account_name}-${var.project}"
-    director-ip = "${var.director-ip}"
-    control-cidr = "${var.control-cidr}"
-    control-gw = "${var.control-gw}"
+    director-ip     = "${var.director-ip}"
+    control-cidr    = "${var.control-cidr}"
+    control-gw      = "${var.control-gw}"
   }
 }
