@@ -95,7 +95,7 @@ variable "zones" {
 }
 
 variable "nat-gateway-image" {
-  default = "debian-cloud/debian-8"
+  default = "debian-cloud/debian-9"
 }
 
 variable "nat-gateway-machine_type" {
